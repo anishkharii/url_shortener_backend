@@ -60,7 +60,7 @@ app.post('/', async (req, res) => {
       const newURL = new URLModel({
         original_url: givenURL,
         short_url: randomString.generate({ length: 6, charset: 'alphanumeric' })
-      });
+      }); 
 
       await newURL.save().then((data) => {
         const shortURL = process.env.BACKEND_URL+data.short_url;
@@ -74,7 +74,7 @@ app.get('/:id', async (req, res) => {
   const data = await URLModel.findOne({ short_url: req.params.id });
 
   if (data) {
-    res.status(200).json(data.original_url);
+    res.redirect(data.original_url);
   } else {
     res.status(404).json({ error: "URL not found" });
   }
