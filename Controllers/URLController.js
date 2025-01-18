@@ -28,7 +28,7 @@ exports.getURL = async (req, res) => {
   try {
     const userAgent = UAParser(req.headers["user-agent"]);
     const ip = requestIp.getClientIp(req);
-    const geo = GeoIp.lookup("207.97.227.239");
+    const geo = GeoIp.lookup(ip);
     const url = await URLModel.findOneAndUpdate(
       { short_id: req.params.id },
       {
