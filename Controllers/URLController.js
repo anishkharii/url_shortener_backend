@@ -34,6 +34,7 @@ exports.getURL = async (req, res) => {
       {
         $push: {
           clicksHistory: {
+            $each : [ {
             timestamp: Date.now(),
             userAgent: {
               browser: userAgent.browser.name,
@@ -44,9 +45,10 @@ exports.getURL = async (req, res) => {
             },
             ip: ip,
             location: geo,
+          }], $position: 0
           },
         },
-      }
+      }, {new: true}
     );
 
     if (!url) {
