@@ -21,8 +21,8 @@ exports.checkValidURL = (req, res, next) => {
 };
 
 exports.authorize = (req, res, next) => {
-  if (req.query.password !== "AnishKhari") {
-    res.status(403).json({ status: "false", message: "Forbidden" });
+  if (req.query.passkey !== process.env.ADMIN_KEY) {
+    res.status(403).json({ status: "false", message: "Forbidden: Unauthorized attempt to Delete." });
     return;
   }
   next();
